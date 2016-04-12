@@ -17,6 +17,7 @@ def timer(f):
         return "execution time: " + str(end - begin)
     return inner
 
+@wrapper
 @app.route("/",methods=["GET","POST"])
 @app.route("/home",methods=["GET","POST"])
 def home():
@@ -26,10 +27,10 @@ def home():
         w = request.form.get('word')
         return redirect(url_for("answer",word=w))
 
-
+@timer
 @app.route("/answer",methods=["GET","POST"])
 @app.route("/answer/<word>",methods=["GET","POST"])
-@wrapper
+
 def answer(word):
     """ 
     gets word that user entered in home page and uses etymology api to 
